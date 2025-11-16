@@ -1,0 +1,12 @@
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\bin\Debug\net8.0\Lab11.deps.json
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\bin\Debug\net8.0\Lab11.dll
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\bin\Debug\net8.0\Lab11.pdb
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\Lab11.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\Lab11.AssemblyInfoInputs.cache
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\Lab11.AssemblyInfo.cs
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\Lab11.csproj.CoreCompileInputs.cache
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\Lab11.sourcelink.json
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\Lab11.dll
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\refint\Lab11.dll
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\Lab11.pdb
+C:\Users\benji\code\my-code-dir\object-oriented-programming\lab-11-snake-benji-stansfield\Lab11\obj\Debug\net8.0\ref\Lab11.dll
