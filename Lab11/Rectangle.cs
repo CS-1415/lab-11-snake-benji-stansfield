@@ -1,4 +1,4 @@
-namespace Lab10;
+namespace Lab11;
 
 public class Rectangle : AbstractGraphic2D
 {
@@ -14,6 +14,8 @@ public class Rectangle : AbstractGraphic2D
         Top = top;
         Width = width;
         Height = height;
+        DisplayChar = '*';
+        ForegroundColor = ConsoleColor.White;
     }
 
     public override decimal LowerBoundX => Left;

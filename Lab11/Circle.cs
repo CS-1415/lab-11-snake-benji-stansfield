@@ -11,6 +11,8 @@ public class Circle : AbstractGraphic2D
         CenterX = x;
         CenterY = y;
         Radius = radius;
+        DisplayChar = '*';
+        ForegroundColor = ConsoleColor.White;
     }
     
     public override decimal LowerBoundX => CenterX - Radius;

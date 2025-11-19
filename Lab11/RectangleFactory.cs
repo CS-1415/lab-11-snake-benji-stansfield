@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace Lab10;
+namespace Lab11;
 
 public class RectangleFactory : IGraphic2DFactory
 {
