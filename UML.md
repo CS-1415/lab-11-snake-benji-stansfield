@@ -1,4 +1,4 @@
-class Cell
+struct Cell
 {
   +int Row
   +int Col
