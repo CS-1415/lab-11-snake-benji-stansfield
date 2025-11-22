@@ -26,4 +26,10 @@ public class Snake
     public void TurnDown() { if (Direction != Direction.Up) Direction = Direction.Down; }
     public void TurnLeft() { if (Direction != Direction.Right) Direction = Direction.Left; }
     public void TurnRight() { if (Direction != Direction.Left) Direction = Direction.Right; }
+
+    // FOR TESTING
+    public List<Cell> GetCells() => new List<Cell>(cells);
+
+    public bool IsOccupied(Cell c) => cells.Any(x => x.Equals(c)); // checks if a cell is being used
+
 }
