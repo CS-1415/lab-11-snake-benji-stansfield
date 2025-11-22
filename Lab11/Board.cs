@@ -134,4 +134,34 @@ public class Board
 
         return new GameResult(false, null); // not finished
     }
+
+    // Draw board to console
+    public void Draw()
+    {
+        Console.Clear();
+        // draw border
+        for (int r = 0; r < Height; r++)
+            for (int c = 0; c < Width; c++)
+            {
+                Console.SetCursorPosition(c, r);
+                Console.Write(' ');
+            }
+
+        // draw apple
+        Console.SetCursorPosition(Apple.Column, Apple.Row);
+        Console.Write(AppleChar);
+
+        // draw snakes
+        foreach (var s in snakes)
+        {
+            foreach (var cell in s.GetCells().Select((cell, idx) => new { cell, idx }))
+            {
+                Console.SetCursorPosition(cell.cell.Column, cell.cell.Row);
+                Console.Write(s.DisplayChar);
+            }
+        }
+
+        // move cursor below board
+        Console.SetCursorPosition(0, Math.Min(Height, Console.BufferHeight - 1));
+    }
 }
