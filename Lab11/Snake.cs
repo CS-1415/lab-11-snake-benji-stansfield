@@ -27,9 +27,38 @@ public class Snake
     public void TurnLeft() { if (Direction != Direction.Right) Direction = Direction.Left; }
     public void TurnRight() { if (Direction != Direction.Left) Direction = Direction.Right; }
 
-    // FOR TESTING
-    public List<Cell> GetCells() => new List<Cell>(cells);
-
     public bool IsOccupied(Cell c) => cells.Any(x => x.Equals(c)); // checks if a cell is being used
 
+    /*Looks at the next cell but doesn't modify*/
+    public Cell PeekNextHead()
+    {
+        var head = cells.Last();
+        switch (Direction)
+        {
+            case Direction.Up: return new Cell(head.Row - 1, head.Column);
+            case Direction.Down: return new Cell(head.Row + 1, head.Column);
+            case Direction.Left: return new Cell(head.Row, head.Column - 1);
+            case Direction.Right: return new Cell(head.Row, head.Column + 1);
+            default: return head;
+        }
+    }
+
+    // Move forward by one. If grow==true, append new head and do not remove tail.
+    public void MoveForward(bool grow)
+    {
+        var nh = PeekNextHead();
+        cells.Add(nh);
+        if (!grow)
+        {
+            // remove first element (tail end)
+            if (cells.Count > 0) cells.RemoveAt(0);
+        }
+    }
+
+    // FOR TESTING
+    public List<Cell> GetCells() => new List<Cell>(cells);
+    public void CellsSetForTest(List<Cell> newCells)
+    {
+        cells = new List<Cell>(newCells);
+    }
 }

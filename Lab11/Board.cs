@@ -50,4 +50,88 @@ public class Board
             if (s.IsOccupied(c)) return false;
         return true;
     }
+
+    public GameResult Step(ConsoleKey? key) // this converts user input into movement
+    {
+        if (key.HasValue)
+        {
+            switch(key.Value)
+            {
+                // WASD -> snake 1
+                case ConsoleKey.W: snakes.FirstOrDefault()?.TurnUp(); break;
+                case ConsoleKey.S: snakes.FirstOrDefault()?.TurnDown(); break;
+                case ConsoleKey.A: snakes.FirstOrDefault()?.TurnLeft(); break;
+                case ConsoleKey.D: snakes.FirstOrDefault()?.TurnRight(); break;
+
+                // Arrows -> snake 2 (if exists)
+                case ConsoleKey.UpArrow: if (snakes.Count > 1) snakes[1].TurnUp(); break;
+                case ConsoleKey.DownArrow: if (snakes.Count > 1) snakes[1].TurnDown(); break;
+                case ConsoleKey.LeftArrow: if (snakes.Count > 1) snakes[1].TurnLeft(); break;
+                case ConsoleKey.RightArrow: if (snakes.Count > 1) snakes[1].TurnRight(); break;
+            }
+        }
+
+        var nextHeads = snakes.Select(s => s.PeekNextHead()).ToList(); // decide the next head
+
+        /*Checks for collisions (wall or other snake)*/
+        var dead = new bool[snakes.Count];
+        for (int i = 0; i < snakes.Count; i++)
+        {
+            var nh = nextHeads[i];
+            if (!IsInside(nh))
+            {
+                dead[i] = true;
+                continue;
+            }
+            // check collision with opponent's occupied cells (before they move)
+            for (int j = 0; j < snakes.Count; j++)
+            {
+                if (i == j) continue; // spec says opponent's tail; skip self
+                if (snakes[j].IsOccupied(nh))
+                {
+                    dead[i] = true;
+                    break;
+                }
+            }
+        }
+
+        // Game ties if both snakes die
+        if (dead.All(d => d))
+            return new GameResult(true, null);
+        
+        for (int i = 0; i < snakes.Count; i++)
+        {
+            if (dead[i])
+            {
+                // winner is any other snake that is alive; if none, tie
+                var alive = snakes.Where((s, idx) => !dead[idx]).ToList();
+                string winner = alive.Count > 0 ? alive[0].Name : null;
+                return new GameResult(true, winner);
+            }
+        }
+
+        var appleEatenBy = -1;
+        for (int i = 0; i < snakes.Count; i++)
+        {
+            if (nextHeads[i].Equals(Apple))
+            {
+                appleEatenBy = i;
+                break; // if both somehow move onto apple, first in list wins the apple
+            }
+        }
+
+        // If a snake's next head is apple it grows, else normal move (append head, remove tail)
+        for (int i = 0; i < snakes.Count; i++)
+        {
+            bool grow = (i == appleEatenBy);
+            snakes[i].MoveForward(grow);
+        }
+
+        if (appleEatenBy >= 0)
+        {
+            MoveApple();
+        }
+
+        return new GameResult(false, null); // not finished
+    }
 }
