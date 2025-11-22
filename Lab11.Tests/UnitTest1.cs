@@ -127,5 +127,77 @@ public class RectangleTests
 // Game Tests
 public class SnakeGameTests
 {
-    
+    [Test]
+    public void CellEqualityAndConstruction()
+    {
+        var a = new Cell(1, 2);
+        var b = new Cell(1, 2);
+        Assert.AreEqual(a, b);
+    }
+}
+
+// Snake Class Tests
+public class SnakeTests
+{
+    [Test]
+    public void TurnAndMoveForward()
+    {
+        var board = new Board(10, 10, 'A');
+        var s = new Snake("P1", new Cell(5, 5), Direction.Right, 'O', board);
+        board.AddSnake(s);
+
+        s.TurnUp();
+        Assert.AreEqual(Direction.Up, s.Direction);
+
+        // Move forward one - should remove tail and add head
+        var oldCells = s.GetCells().ToList();
+        s.MoveForward(grow: false);
+        Assert.AreEqual(oldCells.Count, s.GetCells().Count);
+        Assert.AreNotEqual(oldCells.Last(), s.GetCells().Last());
+    }
+
+    [Test]
+    public void EatAppleGrows()
+    {
+        var board = new Board(10, 10, 'A');
+        var snake = new Snake("P1", new Cell(2, 2), Direction.Right, 'O', board);
+        board.AddSnake(snake);
+
+        board.Apple = new Cell(2, 3); // apple directly in front
+        var result = board.Step(null); // press any key, no direction change
+
+        // step returns GameResult; check snake grew
+        Assert.Greater(snake.GetCells().Count, 1);
+        Assert.AreNotEqual(board.Apple, new Cell(2,3)); // apple moved
+    }
+}
+
+// Board Class Tests
+public class BoardTests
+{
+    [Test]
+    public void DetectCollisionWithOpponentTail()
+    {
+        var board = new Board(10, 10, 'A');
+        var s1 = new Snake("P1", new Cell(5, 5), Direction.Right, 'O', board);
+        var s2 = new Snake("P2", new Cell(5, 7), Direction.Left, 'X', board);
+        board.AddSnake(s1);
+        board.AddSnake(s2);
+
+        s2.CellsSetForTest(new System.Collections.Generic.List<Cell> { new Cell(5, 6), new Cell(5,7) });
+
+        var result = board.Step(null); // both move
+        Assert.IsTrue(result.Finished && result.Winner == "P2");
+    }
+
+    [Test]
+    public void BoardMoveAppleToEmptyCell()
+    {
+        var board = new Board(5, 5, 'A');
+        var snake = new Snake("P1", new Cell(0, 0), Direction.Right, 'O', board);
+        board.AddSnake(snake);
+        board.MoveApple();
+        Assert.IsTrue(board.IsInside(board.Apple));
+        Assert.IsTrue(board.IsCellEmpty(board.Apple));
+    }
 }
