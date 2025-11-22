@@ -123,3 +123,9 @@ public class RectangleTests
         Assert.IsFalse(shape.ContainsPoint(8 + 0.1m, 10));
     }
 }
+
+// Game Tests
+public class SnakeGameTests
+{
+    
+}
