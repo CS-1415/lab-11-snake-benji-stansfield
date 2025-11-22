@@ -18,6 +18,14 @@ public class Snake
         var head = startHead; // creates a head for the snake
         var tail = startHead; // creates another cell - the snake's tail
 
+        switch (dir)
+        {
+            case Direction.Up: tail = new Cell(startHead.Row + 1, startHead.Column); break;
+            case Direction.Down: tail = new Cell(startHead.Row - 1, startHead.Column); break;
+            case Direction.Left: tail = new Cell(startHead.Row, startHead.Column + 1); break;
+            case Direction.Right: tail = new Cell(startHead.Row, startHead.Column - 1); break;
+        }
+
         cells = new List<Cell> {tail, head};
     }
 
