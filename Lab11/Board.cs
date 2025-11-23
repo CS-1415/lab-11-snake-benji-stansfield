@@ -140,29 +140,51 @@ public class Board
     public void Draw()
     {
         Console.Clear();
-        // draw border
-        for (int r = 0; r < Height; r++)
-            for (int c = 0; c < Width; c++)
-            {
-                Console.SetCursorPosition(c, r);
-                Console.Write(' ');
-            }
 
-        // draw apple
-        Console.SetCursorPosition(Apple.Column, Apple.Row);
+        int w = Width;
+        int h = Height;
+
+        // Draw corners
+        Console.SetCursorPosition(0, 0);               Console.Write("┌");
+        Console.SetCursorPosition(w + 1, 0);           Console.Write("┐");
+        Console.SetCursorPosition(0, h + 1);           Console.Write("└");
+        Console.SetCursorPosition(w + 1, h + 1);       Console.Write("┘");
+
+        // Top and bottom borders
+        for (int c = 1; c <= w; c++)
+        {
+            Console.SetCursorPosition(c, 0);
+            Console.Write("─");
+
+            Console.SetCursorPosition(c, h + 1);
+            Console.Write("─");
+        }
+
+        // Left and right borders
+        for (int r = 1; r <= h; r++)
+        {
+            Console.SetCursorPosition(0, r);
+            Console.Write("│");
+
+            Console.SetCursorPosition(w + 1, r);
+            Console.Write("│");
+        }
+
+        // Draw apple
+        Console.SetCursorPosition(Apple.Column + 1, Apple.Row + 1);
         Console.Write(AppleChar);
 
-        // draw snakes
+        // Draw snakes
         foreach (var s in snakes)
         {
-            foreach (var cell in s.GetCells().Select((cell, idx) => new { cell, idx }))
+            foreach (var cell in s.GetCells())
             {
-                Console.SetCursorPosition(cell.cell.Column, cell.cell.Row);
+                Console.SetCursorPosition(cell.Column + 1, cell.Row + 1);
                 Console.Write(s.DisplayChar);
             }
         }
 
-        // move cursor below board
-        Console.SetCursorPosition(0, Math.Min(Height, Console.BufferHeight - 1));
+        // Move cursor below board
+        Console.SetCursorPosition(0, h + 2);
     }
 }
