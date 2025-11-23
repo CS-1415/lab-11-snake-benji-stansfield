@@ -10,6 +10,7 @@ public class Board
     public char AppleChar {get;}
     private List<Snake> snakes = new List<Snake>();
     Random rand = new Random();
+    public IEnumerable<Snake> Snakes => snakes;
 
     public Board(int width, int height, char appleChar)
     {
